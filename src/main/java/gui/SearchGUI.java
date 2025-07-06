@@ -4,6 +4,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import searchEngine.SearchEngine;
+import utils.ia.OptimizerFactory.ModoOptimizacion;
 
 import java.awt.*;
 import java.util.concurrent.*;
@@ -12,12 +13,13 @@ public class SearchGUI {
     private JFrame frame;
     private JTextField searchField;
     private JTextArea resultArea;
-    private JButton searchButton;
     private JLabel statusLabel;
     private SearchEngine searchEngine;
+    private JComboBox<String> optimizerSelector;
+
 
     public SearchGUI() {
-        searchEngine = new SearchEngine();
+        searchEngine = new SearchEngine(ModoOptimizacion.DUMMY_OPTIMIZER);
     }
 
     public void createAndShowGUI() {
@@ -35,6 +37,41 @@ public class SearchGUI {
         searchField = new JTextField();
         searchField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
+        // 🔽 NUEVO: Selector de optimización
+        JPanel optimizerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel optimizerLabel = new JLabel("Modo:");
+        optimizerLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+
+        optimizerSelector = new JComboBox<>(new String[] { "Dummy Optimizer", "IA Optimizer" });
+        optimizerSelector.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        optimizerSelector.setSelectedIndex(0); // por defecto: Dummy
+
+        optimizerPanel.add(optimizerLabel);
+        optimizerPanel.add(optimizerSelector);
+
+        // 🔽 NUEVO: Panel para alinear el input y el combo
+        JPanel upperInputPanel = new JPanel(new BorderLayout(5, 5));
+        upperInputPanel.add(searchField, BorderLayout.CENTER);
+        upperInputPanel.add(optimizerPanel, BorderLayout.EAST);
+
+        topPanel.add(upperInputPanel, BorderLayout.SOUTH);
+
+        frame.add(topPanel, BorderLayout.NORTH);
+
+        resultArea = new JTextArea();
+        resultArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        resultArea.setEditable(false);
+        if(!this.searchEngine.getData().isEmpty())
+            resultArea.setText(String.join("\n", this.searchEngine.getData()));
+        JScrollPane scrollPane = new JScrollPane(resultArea);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        statusLabel = new JLabel("Escribe una consulta y presiona 'Buscar'", SwingConstants.CENTER);
+        statusLabel.setFont(new Font("SansSerif", Font.ITALIC, 14));
+        frame.add(statusLabel, BorderLayout.SOUTH);
+        
+        frame.setVisible(true);
+
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -50,29 +87,11 @@ public class SearchGUI {
             public void changedUpdate(DocumentEvent e) {}
         });
 
-        searchButton = new JButton("Buscar");
-        searchButton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        inputPanel.add(searchField, BorderLayout.CENTER);
-        inputPanel.add(searchButton, BorderLayout.EAST);
+        optimizerSelector.addActionListener(e -> {
+            int selectedIndex = optimizerSelector.getSelectedIndex();
+            searchEngine = new SearchEngine(ModoOptimizacion.getModoOptimizacion(selectedIndex));
+        });
 
-        topPanel.add(inputPanel, BorderLayout.SOUTH);
-        frame.add(topPanel, BorderLayout.NORTH);
-
-        resultArea = new JTextArea();
-        resultArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
-        resultArea.setEditable(false);
-        if(!this.searchEngine.getData().isEmpty())
-            resultArea.setText(String.join("\n", this.searchEngine.getData()));
-        JScrollPane scrollPane = new JScrollPane(resultArea);
-        frame.add(scrollPane, BorderLayout.CENTER);
-
-        statusLabel = new JLabel("Escribe una consulta y presiona 'Buscar'", SwingConstants.CENTER);
-        statusLabel.setFont(new Font("SansSerif", Font.ITALIC, 14));
-        frame.add(statusLabel, BorderLayout.SOUTH);
-
-        searchButton.addActionListener(e -> performSearch());
-        searchField.addActionListener(e -> performSearch());
-        frame.setVisible(true);
     }
 
     private void performSearch() {
@@ -85,7 +104,6 @@ public class SearchGUI {
 
         resultArea.setText("");
         statusLabel.setText("Buscando coincidencias para: '" + query + "'...");
-        searchButton.setEnabled(false);
         searchField.setEnabled(false);
 
         new Thread(() -> {
@@ -104,7 +122,6 @@ public class SearchGUI {
                     resultArea.setText(String.join("\n", results.values()));
                 }
                 statusLabel.setText("Resultados encontrados: " + results.size() + " | Tiempo: " + duration + " ms");
-                searchButton.setEnabled(true);
                 searchField.setEnabled(true);
                 searchField.grabFocus();
             });
