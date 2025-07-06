@@ -48,5 +48,6 @@ public class DataSetGenerator {
         ForkJoinPool pool = new ForkJoinPool();
         SearchTask task = new SearchTask(data, 0, data.size(), query, blockSize);
         pool.invoke(task);
+        pool.close();
     }
 }

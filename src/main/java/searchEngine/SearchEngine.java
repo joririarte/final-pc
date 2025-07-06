@@ -3,8 +3,6 @@ import java.util.*;
 import java.util.concurrent.*;
 
 import utils.data.DataLoader;
-import utils.ia.DummyIAOptimizer;
-import utils.ia.IAOptimizer;
 import utils.ia.Optimizer;
 import utils.ia.OptimizerFactory;
 import utils.ia.OptimizerFactory.ModoOptimizacion;
@@ -15,7 +13,7 @@ public class SearchEngine {
     private Optimizer optimizer;
 
     public SearchEngine(ModoOptimizacion m) {
-        data = DataLoader.loadDummyData(ThreadLocalRandom.current().nextInt(1000,50001)); //un dataset de entre 1000 y 50000 registros
+        data = DataLoader.loadDummyData(); //un dataset de entre 1000 y 50000 registros
         pool = new ForkJoinPool();
         try{
             optimizer = OptimizerFactory.createOptimizer(m);
