@@ -33,7 +33,6 @@ public class SearchGUI {
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         topPanel.add(titleLabel, BorderLayout.NORTH);
 
-        JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
         searchField = new JTextField();
         searchField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 

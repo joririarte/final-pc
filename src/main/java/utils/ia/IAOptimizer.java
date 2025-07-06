@@ -1,6 +1,5 @@
 package utils.ia;
 
-import ai.djl.Model;
 import ai.djl.inference.Predictor;
 import ai.djl.ndarray.*;
 import ai.djl.translate.*;
