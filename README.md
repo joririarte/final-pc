@@ -2,6 +2,22 @@
 
 Este es un proyecto Java basado en Maven llamado "finalpc". Está diseñado para demostrar el uso de Java 21.0.7 e incluye la biblioteca DJL (Deep Java Library) para capacidades de aprendizaje automático (machine learning).
 
+## Requerimiento
+### Optimización de Búsqueda Concurrente en un Gran Conjunto de Datos
+#### Descripción
+Desarrolla un motor de búsqueda concurrente que procese consultas sobre un conjunto de datos muy grande, distribuyendo las tareas de búsqueda entre varios hilos.
+#### Requerimientos
+1.	Carga el conjunto de datos en bloques utilizando ForkJoinPool para dividir la búsqueda.
+2.	Implementa un RecursiveTask para realizar la búsqueda en paralelo.
+3.	Usa ConcurrentHashMap para almacenar y combinar los resultados de manera eficiente.
+4.	(Aplicación de IA): Optimiza el rendimiento mediante IA, ajustando dinámicamente:
+    *	El tamaño de los bloques de búsqueda.
+    * La distribución de carga entre hilos.
+#### Pistas para aplicar IA
+*  	Aplica Aprendizaje por Refuerzo para ajustar el tamaño de los bloques de búsqueda.
+*	Utiliza Redes Neuronales Recurrentes (RNNs) para predecir patrones de búsqueda y optimizar la cache de resultados.
+
+
 ## Estructura del Proyecto
 
 ```
