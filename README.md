@@ -17,7 +17,6 @@ Desarrolla un motor de búsqueda concurrente que procese consultas sobre un conj
 *  	Aplica Aprendizaje por Refuerzo para ajustar el tamaño de los bloques de búsqueda.
 *	Utiliza Redes Neuronales Recurrentes (RNNs) para predecir patrones de búsqueda y optimizar la cache de resultados.
 
-
 ## Estructura del Proyecto
 
 ```
@@ -98,3 +97,6 @@ mvn test
 ## Dependencias
 
 Este proyecto incluye la biblioteca DJL para aprendizaje automático (machine learning). Las dependencias están gestionadas en el archivo pom.xml.
+
+## Capturas
+![alt text](image.png)
