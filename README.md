@@ -1,30 +1,61 @@
-# finalpc Project
+# Proyecto Final PC
 
-This is a Maven-based Java project named "finalpc". It is designed to demonstrate the use of Java 21.0.7 and includes the DJL (Deep Java Library) for machine learning capabilities.
+Este es un proyecto Java basado en Maven llamado "finalpc". Está diseñado para demostrar el uso de Java 21.0.7 e incluye la biblioteca DJL (Deep Java Library) para capacidades de aprendizaje automático (machine learning).
 
-## Project Structure
+## Estructura del Proyecto
 
 ```
-finalpc
-├── src
-│   ├── main
-│   │   ├── java
+FINALPC
+├── iaTrainer/                  # Scripts de entrenamiento del modelo IA (Python)
+│   ├── trainer.py              # Script para entrenar el modelo
+│   └── readme.md               # Documentación del entrenamiento
+│
+├── models/                     # Carpeta para guardar el modelo entrenado (model.pt)
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── gui/
+│   │   │   │   └── SearchGUI.java
+│   │   │   │
+│   │   │   ├── searchEngine/
+│   │   │   │   ├── SearchEngine.java
+│   │   │   │   └── SearchTask.java
+│   │   │   │
+│   │   │   ├── utils/
+│   │   │   │   ├── data/
+│   │   │   │   │   ├── DataLoader.java
+│   │   │   │   │   └── DataSetGenerator.java
+│   │   │   │   │
+│   │   │   │   └── ia/
+│   │   │   │       ├── Optimizer.java               # Interfaz
+│   │   │   │       ├── DummyIAOptimizer.java        # Implementación dummy
+│   │   │   │       ├── IAOptimizer.java             # Implementación real (DJL)
+│   │   │   │       └── OptimizerFactory.java        # Selector de implementación
+│   │   │   │
 │   │   │   └── App.java
-│   │   └── resources
-│   └── test
-│       ├── java
-│       │   └── AppTest.java
-│       └── resources
-├── pom.xml
-└── README.md
+│   │   │
+│   │   └── resources/           # Archivos de recursos (por ahora vacío)
+│   │
+│   └── test/
+│       ├── java/
+│       │   └── AppTest.java     # Test unitarios
+│       └── resources/           # Recursos para test (vacío por ahora)
+│
+│
+├── .gitignore
+├── dataset.csv                # Dataset de entrenamiento para IA
+├── pom.xml                    # Configuración de Maven
+└── README.md                  # Descripción del proyecto
+
 ```
 
-## Requirements
+## Requisitos
 
 - Java 21.0.7
 - Maven 3.9.10
 
-## Building the Project
+## Compilar el Proyecto
 
 To build the project, navigate to the root directory of the project and run the following command:
 
@@ -32,22 +63,22 @@ To build the project, navigate to the root directory of the project and run the 
 mvn clean install
 ```
 
-## Running the Application
+## Ejecutar la Aplicación
 
-After building the project, you can run the application using the following command:
+Después de compilar el proyecto, puedes ejecutar la aplicación con el siguiente comando:
 
 ```
 mvn exec:java -Dexec.mainClass="App"
 ```
 
-## Running Tests
+## Ejecutar las Pruebas
 
-To run the tests, use the following command:
+Para ejecutar las pruebas, usa el siguiente comando:
 
 ```
 mvn test
 ```
 
-## Dependencies
+## Dependencias
 
-This project includes the DJL library for machine learning. The dependencies are managed in the `pom.xml` file.
+Este proyecto incluye la biblioteca DJL para aprendizaje automático (machine learning). Las dependencias están gestionadas en el archivo pom.xml.

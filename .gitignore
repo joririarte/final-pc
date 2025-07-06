@@ -1,4 +1,19 @@
-/.vscode/
+# Java
 /target/
-/.idea/
+*.class
+
+# VSCode
+.vscode/
+
+# Entrenamiento Python
 /iaTrainer/venv/
+__pycache__/
+*.pyc
+
+# Modelos entrenados
+/models/
+*.pt
+
+# Sistema
+.DS_Store
+Thumbs.db
